@@ -1,0 +1,29 @@
+{
+  "name": "Neon Arcade",
+  "short_name": "Arcade",
+  "description": "Twelve browser minigames behind one menu \u2014 shooter, Tetris, Ping Pong, Breakout, Minesweeper, Space Waves, Downhill Skate, a pseudo-3D racer and more.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#06080f",
+  "theme_color": "#06080f",
+  "categories": [
+    "games",
+    "entertainment"
+  ],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
