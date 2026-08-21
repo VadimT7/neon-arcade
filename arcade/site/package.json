@@ -4,6 +4,6 @@
   "private": true,
   "description": "Twelve browser minigames behind one menu.",
   "scripts": {
-    "build": "node build.js"
+    "build": "node init && node build.js"
   }
 }

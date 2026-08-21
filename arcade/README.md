@@ -1,6 +1,6 @@
 # 🕹️ NEON ARCADE
 
-A single-file, zero-dependency collection of ten minigames with a shared player profile. Open `arcade/index.html` in any
+A single-file, zero-dependency collection of twelve minigames with a shared player profile. Open `arcade/index.html` in any
 modern browser — no build step, no server, no CDN, works completely offline.
 
 The menu is the entry point: pick a game from the card grid, play, hit **← ARCADE**
@@ -17,9 +17,9 @@ One identity across the whole arcade, reachable at any time from the chip in the
   lines in Tetris, coins in Bike Rider, bricks in Breakout, cleared minefields, metres
   climbed, and rallies won in Ping Pong. The Ping Pong ability shop spends from the same
   balance.
-* **Levels** — one XP track shared by all ten games: everything you earn anywhere counts
+* **Levels** — one XP track shared by all twelve games: everything you earn anywhere counts
   towards the same level curve, shown as an XP bar on the profile and on the menu strip.
-* **40 achievements** across all ten games, each paying a bounty when it unlocks, announced
+* **40 achievements** across all twelve games, each paying a bounty when it unlocks, announced
   by a toast the moment it happens.
 * **Hall of Fame** — every leaderboard in the arcade on one screen.
 * **Personal bests** — every game logs your best result and the results screen tells you where
@@ -40,6 +40,41 @@ One identity across the whole arcade, reachable at any time from the chip in the
   together.
 
 All of it lives in `localStorage`, so it is per browser and needs no account.
+
+## Rewarded spots, the reward shop and the daily bonus
+
+The arcade has an opt-in "watch a short spot, keep the reward" loop. **The spots are house
+creatives drawn by the page itself** — parody sponsors and cross-promos for the arcade's own
+games. There is no ad network, no request and no tracking anywhere in it, and the player is
+told so on every spot. Nothing here breaks the offline guarantee.
+
+A spot runs five seconds. It can be skipped after the first second, which forfeits the reward;
+`Escape` does the same. Only watching it through unlocks the CLAIM button.
+
+* **Continue your run** — seven games offer an extra life on the results screen: Star Shooter
+  (screen cleared, 2.6 s of invulnerability), Snake (a short snake back on a clear stretch),
+  Breakout (one more ball), Tetris (the top twelve rows wiped), Sky Climber (a fresh ledge
+  catches you), Space Waves (the corridor reopens) and Downhill Skate (one more life). One
+  continue per run.
+* **Double your payout** — every one of the twelve games offers to pay the run's purse a
+  second time. Once per run.
+* **Reward shop**, from the menu — six rewards, each behind one spot, with per-item daily caps
+  and cooldowns: a $500 cash drop, a $1,500 big drop, a mystery box ($100–$2,500), twenty
+  minutes of **double pay**, a challenge skip that clears one unfinished daily challenge, and
+  a jackpot spin that pays up to $10,000 at one-in-fifty odds.
+* **Daily bonus** — a seven-day streak ladder ($250, $450, $700, $1,000, a 15-minute double-pay
+  boost, $1,800, $3,000). Logging in on consecutive days walks up the ladder, so two days in a
+  row is two rewards, the second larger than the first. Miss a day and it restarts at day one;
+  day eight wraps back to the top of the cycle. The drop can also be doubled by watching a
+  spot, and a returning player is offered it automatically on the menu.
+
+**Double pay** multiplies every payout in every game while it runs, and says so with a toast.
+Rewards paid by the shop and the daily bonus are exempt, so a boost cannot compound with
+itself.
+
+A continued run never pays its purse twice: `Run.owe()` tracks what has already been banked and
+pays only the difference, and `Run.keepPb()`/`restorePb()` roll the personal best back when a
+run is resurrected so the results line stays honest.
 
 ## The games
 

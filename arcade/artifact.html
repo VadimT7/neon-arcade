@@ -223,6 +223,7 @@ tr.fresh td{animation:freshrow 1.1s ease}
 .toast b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ac,var(--lime))}
 .toast span{font-size:11px;color:var(--dim);line-height:1.5}
 .toast em{font-style:normal;color:var(--amber);font-family:var(--mono);font-size:10px}
+.toast.rw em{display:block;margin-top:4px;letter-spacing:.1em}
 .prohead{display:flex;gap:20px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);
   border-radius:16px;padding:22px;background:linear-gradient(150deg,var(--panel),var(--panel2))}
 .proav{width:76px;height:76px;border-radius:20px;display:grid;place-items:center;flex:none;
@@ -332,6 +333,133 @@ tr.fresh td{animation:freshrow 1.1s ease}
 .legend span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--dim);
   border:1px solid var(--line);border-radius:999px;padding:5px 11px;background:var(--panel2)}
 .legend span i{font-style:normal;margin-right:6px;font-size:12px}
+
+/* =====================================================================
+   REWARDED SPOTS, REWARD SHOP, DAILY BONUS
+   ===================================================================== */
+
+/* ---------- menu action row ---------- */
+.menuacts{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:0 0 22px}
+.mact{position:relative;display:flex;align-items:center;gap:12px;text-align:left;
+  border:1px solid var(--line);border-radius:14px;padding:12px 18px;cursor:pointer;
+  background:linear-gradient(150deg,var(--panel),var(--panel2));
+  transition:.18s transform,.18s border-color,.18s box-shadow}
+.mact:hover{transform:translateY(-3px);border-color:var(--ac,var(--cyan));
+  box-shadow:0 18px 38px -22px var(--ac,var(--cyan))}
+.mact .mi{font-size:24px;line-height:1}
+.mact b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--ac,var(--cyan))}
+.mact span{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--dim);margin-top:3px}
+.mact .pip{position:absolute;top:-7px;right:-7px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;
+  background:var(--red);color:#2a0508;font-family:var(--mono);font-size:10px;font-weight:900;
+  display:grid;place-items:center;letter-spacing:.02em;box-shadow:0 0 0 3px var(--bg);
+  animation:pip 1.6s ease-in-out infinite}
+@keyframes pip{0%,100%{transform:scale(1)}50%{transform:scale(1.16)}}
+
+/* ---------- the ad player ---------- */
+#adWrap{position:fixed;inset:0;z-index:400;display:none;place-items:center;padding:20px;
+  background:rgba(2,4,10,.9);backdrop-filter:blur(6px)}
+#adWrap.show{display:grid;animation:fade .2s ease}
+.adbox{width:min(560px,96vw);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  background:var(--bg2);box-shadow:0 40px 90px -30px #000;animation:adpop .3s cubic-bezier(.2,1.2,.4,1)}
+@keyframes adpop{from{opacity:0;transform:scale(.93) translateY(14px)}}
+.adtop{display:flex;align-items:center;gap:10px;padding:9px 13px;border-bottom:1px solid var(--line);
+  background:var(--panel2);font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--dim)}
+.adtop .adlabel{border:1px solid var(--line);border-radius:5px;padding:3px 7px;color:var(--amber);
+  letter-spacing:.2em;font-weight:800}
+.adtop .adtimer{margin-left:auto;color:var(--txt);letter-spacing:.1em}
+.adskip{border:1px solid var(--line);background:transparent;color:var(--dim);border-radius:7px;
+  padding:5px 10px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;cursor:pointer}
+.adskip:hover{border-color:var(--red);color:var(--red)}
+.adskip[disabled]{opacity:.35;cursor:default}
+.adbar{height:3px;background:#0a1024}
+.adbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--lime))}
+.adcreative{position:relative;min-height:224px;display:grid;place-items:center;text-align:center;
+  padding:30px 26px;overflow:hidden;background:
+    radial-gradient(560px 220px at 50% 0%,var(--ac,var(--cyan)) -60%,transparent 70%),var(--panel2)}
+.adcreative .adart{font-size:64px;line-height:1;filter:drop-shadow(0 10px 26px var(--ac,var(--cyan)));
+  animation:adart 2.6s ease-in-out infinite}
+@keyframes adart{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+.adcreative h4{margin:16px 0 0;font-family:var(--mono);font-size:clamp(19px,4.4vw,27px);
+  letter-spacing:.14em;color:var(--ac,var(--cyan));font-weight:900}
+.adcreative p{margin:9px auto 0;max-width:400px;font-size:12.5px;line-height:1.7;color:var(--dim)}
+.adcreative .adcta{margin-top:16px;display:inline-block;border:1px dashed var(--ac,var(--cyan));
+  border-radius:999px;padding:7px 18px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+  color:var(--ac,var(--cyan))}
+.adcreative .adglow{position:absolute;inset:auto -20% -60% -20%;height:70%;pointer-events:none;
+  background:radial-gradient(closest-side,var(--ac,var(--cyan)),transparent);opacity:.16}
+.adfoot{display:flex;align-items:center;gap:12px;padding:14px;border-top:1px solid var(--line);
+  background:var(--panel);flex-wrap:wrap}
+.adfoot .adreward{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--dim);line-height:1.7}
+.adfoot .adreward b{display:block;font-size:13px;color:var(--lime);letter-spacing:.14em}
+.adfoot .btn{margin-left:auto}
+.adnote{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--dim);opacity:.75;
+  padding:0 14px 12px;text-align:center;background:var(--panel);line-height:1.6}
+
+/* ---------- reward offer strip on results overlays ---------- */
+.offerbar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px auto 0;max-width:560px}
+.offer{display:flex;align-items:center;gap:10px;border:1px solid var(--ac,var(--lime));border-radius:12px;
+  padding:9px 15px;background:rgba(163,230,53,.06);cursor:pointer;font-family:var(--mono);
+  transition:.15s transform,.15s box-shadow}
+.offer:hover{transform:translateY(-2px);box-shadow:0 14px 30px -16px var(--ac,var(--lime))}
+.offer:disabled{opacity:.4;cursor:default;transform:none;box-shadow:none}
+.offer .oi{font-size:19px;line-height:1}
+.offer b{display:block;font-size:11px;letter-spacing:.14em;color:var(--ac,var(--lime))}
+.offer span{display:block;font-size:9px;letter-spacing:.1em;color:var(--dim);margin-top:2px}
+
+/* ---------- reward shop screen ---------- */
+.rwbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid var(--line);
+  border-radius:14px;padding:12px 16px;background:var(--panel2);margin-bottom:20px}
+.rwbar .chip{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--dim);
+  border:1px solid var(--line);border-radius:999px;padding:7px 14px;background:var(--panel)}
+.rwbar .chip b{margin-left:8px;color:var(--txt)}
+.rwgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px}
+.rw{position:relative;border:1px solid var(--line);border-radius:16px;padding:20px;overflow:hidden;
+  display:flex;flex-direction:column;background:linear-gradient(160deg,var(--panel),var(--panel2));
+  transition:.18s transform,.18s border-color,.18s box-shadow}
+.rw:hover{transform:translateY(-3px);border-color:var(--ac,var(--cyan));
+  box-shadow:0 22px 44px -24px var(--ac,var(--cyan))}
+.rw::after{content:"";position:absolute;inset:-46% -10% auto;height:70%;pointer-events:none;
+  background:radial-gradient(closest-side,var(--ac,var(--cyan)),transparent);opacity:.12}
+.rw .ri{font-size:34px;line-height:1}
+.rw h3{margin:12px 0 5px;font-family:var(--mono);font-size:14px;letter-spacing:.14em;color:var(--ac,var(--cyan))}
+.rw .rval{font-family:var(--mono);font-size:20px;font-weight:900;letter-spacing:.06em;color:var(--amber)}
+.rw p{margin:8px 0 14px;font-size:12px;line-height:1.6;color:var(--dim)}
+.rw .rleft{margin-top:auto;font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--dim);
+  margin-bottom:10px}
+.rw .rbtn{width:100%;border:1px solid var(--ac,var(--cyan));background:transparent;color:var(--ac,var(--cyan));
+  padding:11px;border-radius:10px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  font-weight:800;cursor:pointer}
+.rw .rbtn:hover:not(:disabled){background:var(--ac,var(--cyan));color:#050a14}
+.rw .rbtn:disabled{border-color:var(--line);color:var(--dim);cursor:default}
+.rw.spent{opacity:.62}
+
+/* ---------- daily bonus ---------- */
+#dayWrap{position:fixed;inset:0;z-index:300;display:none;place-items:center;padding:20px;
+  background:rgba(2,4,10,.86);backdrop-filter:blur(5px)}
+#dayWrap.show{display:grid;animation:fade .2s ease}
+.daybox{width:min(680px,96vw);max-height:92vh;overflow:auto;border:1px solid var(--line);border-radius:20px;
+  padding:26px 24px 22px;text-align:center;background:linear-gradient(160deg,var(--panel),var(--panel2));
+  box-shadow:0 40px 90px -30px #000;animation:adpop .32s cubic-bezier(.2,1.2,.4,1)}
+.daybox h3{margin:0 0 6px;font-family:var(--mono);font-size:clamp(20px,4.4vw,30px);letter-spacing:.16em;
+  color:var(--amber)}
+.daybox .daysub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--dim);line-height:1.8}
+.daystrip{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:20px 0 6px}
+@media(max-width:560px){.daystrip{grid-template-columns:repeat(4,1fr)}}
+.dayt{position:relative;border:1px solid var(--line);border-radius:12px;padding:12px 6px 10px;
+  background:var(--panel2);font-family:var(--mono)}
+.dayt em{display:block;font-style:normal;font-size:8.5px;letter-spacing:.12em;color:var(--dim)}
+.dayt .dico{font-size:19px;line-height:1;margin:7px 0 5px}
+.dayt b{display:block;font-size:11px;letter-spacing:.04em;color:var(--txt)}
+.dayt.done{border-color:var(--lime);background:rgba(163,230,53,.08)}
+.dayt.done::after{content:"\2713";position:absolute;top:5px;right:7px;color:var(--lime);font-size:11px}
+.dayt.done b{color:var(--lime)}
+.dayt.now{border-color:var(--amber);background:rgba(251,191,36,.1);
+  box-shadow:0 0 0 1px var(--amber),0 14px 34px -18px var(--amber);transform:translateY(-3px)}
+.dayt.now b{color:var(--amber)}
+.dayt.now em{color:var(--amber)}
+.daybox .dayacts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.daystreak{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--dim);margin-top:14px;line-height:1.8}
+.daystreak b{color:var(--lime)}
 </style>
 
 
@@ -351,6 +479,36 @@ tr.fresh td{animation:freshrow 1.1s ease}
 </header>
 <div id="toasts"></div>
 
+<!-- ===================== REWARDED SPOT PLAYER ===================== -->
+<div id="adWrap" aria-hidden="true">
+  <div class="adbox" role="dialog" aria-modal="true" aria-label="Rewarded spot">
+    <div class="adtop">
+      <span class="adlabel">AD</span>
+      <span id="adSponsor">SPONSORED SPOT</span>
+      <span class="adtimer" id="adTimer">REWARD IN 5s</span>
+      <button class="adskip" id="adSkip" disabled>SKIP</button>
+    </div>
+    <div class="adbar"><i id="adFill"></i></div>
+    <div class="adcreative" id="adCreative"></div>
+    <div class="adfoot">
+      <div class="adreward">WATCH TO EARN<b id="adReward">REWARD</b></div>
+      <button class="btn primary" id="adClaim" disabled>HOLD ON&hellip;</button>
+    </div>
+    <p class="adnote">HOUSE SPOT &middot; NEON ARCADE HAS NO AD NETWORK AND NO CONNECTION &mdash; NOTHING LEAVES THIS DEVICE</p>
+  </div>
+</div>
+
+<!-- ===================== DAILY BONUS ===================== -->
+<div id="dayWrap" aria-hidden="true">
+  <div class="daybox" role="dialog" aria-modal="true" aria-label="Daily bonus">
+    <h3>&#127873; DAILY BONUS</h3>
+    <p class="daysub" id="daySub">COME BACK EVERY DAY &mdash; THE STREAK PAYS MORE EACH TIME</p>
+    <div class="daystrip" id="dayStrip"></div>
+    <p class="daystreak" id="dayStreak"></p>
+    <div class="dayacts" id="dayActs"></div>
+  </div>
+</div>
+
 <main>
 <!-- ============================== MENU ============================== -->
 <section id="menu" class="screen active">
@@ -359,6 +517,18 @@ tr.fresh td{animation:freshrow 1.1s ease}
     <p id="heroCount">NO DOWNLOADS &nbsp;&middot;&nbsp; PICK ONE AND PLAY</p>
   </div>
   <div class="chalstrip" id="menuChal"></div>
+  <div class="menuacts">
+    <button class="mact" id="mactRewards" style="--ac:var(--lime)">
+      <span class="mi">&#127871;</span>
+      <span><b>REWARD SHOP</b><span id="mactRewardsSub">WATCH A SPOT &middot; KEEP THE REWARD</span></span>
+      <span class="pip" id="mactRewardsPip" hidden>!</span>
+    </button>
+    <button class="mact" id="mactDaily" style="--ac:var(--amber)">
+      <span class="mi">&#127873;</span>
+      <span><b>DAILY BONUS</b><span id="mactDailySub">CLAIM TODAY&rsquo;S DROP</span></span>
+      <span class="pip" id="mactDailyPip" hidden>1</span>
+    </button>
+  </div>
   <div class="grid" id="menuGrid"></div>
   <div class="footer">EVERYTHING RUNS LOCALLY IN YOUR BROWSER &mdash; SCORES SAVED ON THIS DEVICE</div>
 </section>
@@ -755,6 +925,24 @@ tr.fresh td{animation:freshrow 1.1s ease}
   <div class="footer">EVERY ITEM IS A ONE-OFF PURCHASE &mdash; EQUIP AND SWAP AS OFTEN AS YOU LIKE</div>
 </section>
 
+<!-- ============================== REWARD SHOP ============================== -->
+<section id="rewards" class="screen">
+  <div class="hero" style="padding:18px 10px 18px">
+    <h1 style="font-size:clamp(26px,5vw,44px)">REWARD SHOP</h1>
+    <p>WATCH A SHORT SPOT &mdash; KEEP WHAT IT PAYS</p>
+  </div>
+  <div class="rwbar">
+    <div class="chip">WALLET<b id="rwWallet" style="color:var(--amber)">$0</b></div>
+    <div class="chip">SPOTS TODAY<b id="rwWatched">0</b></div>
+    <div class="chip" id="rwBoostChip" hidden>DOUBLE PAY<b id="rwBoost" style="color:var(--lime)">&mdash;</b></div>
+    <div class="spacer"></div>
+    <button class="btn ghost" data-act="rewards-daily">&#127873; DAILY BONUS</button>
+    <button class="btn ghost" data-act="rewards-menu">&larr; ARCADE</button>
+  </div>
+  <div class="rwgrid" id="rwGrid"></div>
+  <div class="footer">SPOTS ARE HOUSE ADS BUILT INTO THE PAGE &mdash; NOTHING IS DOWNLOADED AND NOTHING IS TRACKED</div>
+</section>
+
 <!-- ============================ HALL OF FAME ============================ -->
 <section id="hall" class="screen">
   <div class="hero" style="padding:18px 10px 24px">
@@ -1064,6 +1252,27 @@ const TILE_PALETTES={
 };
 const accItem=id=>{ for(const k in ACC){ const it=ACC[k].items.find(i=>i.id===id); if(it) return it; } return null; };
 
+/* --- DOUBLE PAY: a timed multiplier the reward shop and daily bonus grant --- */
+const Boost=(()=>{
+  let pend=0,t=0;
+  const until=()=>Store.get('boost.until',0);
+  return {
+    get until(){ return until(); },
+    get active(){ return until()>Date.now(); },
+    get left(){ return Math.max(0,until()-Date.now()); },
+    grant(ms){ Store.set('boost.until',Math.max(until(),Date.now())+ms); },
+    /* collect the bonus half of several payouts into one toast */
+    credit(extra){
+      pend+=extra; clearTimeout(t);
+      t=setTimeout(()=>{
+        const n=Math.round(pend); pend=0;
+        if(n>0) notify('&#9889;','DOUBLE PAY','Your boost paid out on top of that run.',
+          '+$'+n.toLocaleString()+' EXTRA','var(--cyan)');
+      },800);
+    }
+  };
+})();
+
 const Profile=(()=>{
   const D={name:'PLAYER',color:COLORS[0],cash:0,earned:0,games:0,stats:{},ach:{},created:0,
     owned:[],worn:{ship:'ship.std',snake:'snake.std',bat:'bat.std',tile:'tile.std',
@@ -1096,8 +1305,9 @@ const Profile=(()=>{
       return v;
     },
     setColor(c){ P.color=c; save(); chip(); },
-    pay(n){
+    pay(n,raw){
       n=Math.round(n); if(!n) return 0;
+      if(n>0&&!raw&&Boost.active){ const half=n; n*=2; Boost.credit(half); }
       P.cash=Math.max(0,P.cash+n);
       if(n>0) P.earned+=n;
       save(); chip(); if(n>0) Ach.evaluate();
@@ -1399,7 +1609,7 @@ const Chal=(()=>{
       t.setHours(24,0,0,0); t.setDate(t.getDate()+(7-day));
       return t-now;
     },
-    def,target
+    def,target,force:complete
   };
 })();
 function fmtLeft(ms){
@@ -1467,7 +1677,7 @@ function goto(id){
   if(current&&hooks[current]&&hooks[current].leave) hooks[current].leave();
   $$('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
   current=id; backBtn.hidden=(id==='menu');
-  if(id==='menu'){ renderMenu(); renderMenuChal(); }
+  if(id==='menu'){ renderMenu(); renderMenuChal(); syncMenuActs(); }
   if(hooks[id]&&hooks[id].enter) hooks[id].enter();
   window.scrollTo({top:0,behavior:'instant'in document.documentElement.style?'instant':'auto'});
   location.hash = id==='menu' ? '' : id;
@@ -2522,6 +2732,19 @@ function loop(now){
   if(S.drafting){ render(); return; }
   update(dt); render();
 }
+/* a rewarded spot buys one more life and clears the screen around you */
+function reviveRun(){
+  overlay(oOver,false);
+  Run.restorePb(S,'shooter');
+  S.revived=true; S.overFlag=false;
+  S.lives=1; S.combo=0; S.comboT=0;
+  S.enemies.length=0; S.eb.length=0;
+  S.player.x=W/2; S.player.y=H-90; S.player.cd=0; S.player.inv=2600;
+  S.shieldT=Math.max(S.shieldT,2400);
+  running=true; paused=false; last=0;
+  cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
+  flash(elFlash,'BACK IN THE FIGHT','#a3e635'); Sfx.win();
+}
 function gameOver(){
   S.overFlag=true; running=false; cancelAnimationFrame(raf);
   part(S.player.x,S.player.y,60,'#f87171',6,44); render();
@@ -2530,12 +2753,17 @@ function gameOver(){
   if(S.pending){ Profile.stat('shooter.kills',S.pending); S.pending=0; }
   Profile.stat('shooter.wave',S.wave,'max');
   Profile.stat('shooter.combo',S.bestCombo,'max');
+  Run.keepPb(S,'shooter');
   const purse=Math.round(S.score/40)+S.wave*10;
-  Profile.pay(purse); flash(elFlash,'RUN BANKED  +$'+purse,'#fbbf24');
+  const paid=Profile.pay(Run.owe(S,purse));
+  if(paid>0) flash(elFlash,'RUN BANKED  +$'+paid,'#fbbf24');
   $('#soScore').textContent=S.score; $('#soWave').textContent=S.wave;
   $('#soKills').textContent=S.kills; $('#soCombo').textContent=S.bestCombo;
   $('#soHi').textContent=S.hi; $('#shooterHi').textContent=S.hi;
   PB.show($('#soPb'),'shooter',S.score);
+  Ads.offer($('#soPb'),{game:'shooter',cash:S.banked,doubled:S.doubled,
+    onDouble(){ S.doubled=true; },
+    revive:S.revived?null:{label:'CONTINUE &middot; EXTRA LIFE',run:reviveRun}});
   setTimeout(()=>overlay(oOver,true),450);
 }
 function start(){
@@ -2661,7 +2889,7 @@ const START_MS=170, MIN_MS=96, STEP_MS=2.4;   /* slow start, gentle ramp, hard f
 const MODES={classic:'CLASSIC',wrap:'WRAP',maze:'MAZE',duel:'DUEL'};
 let mode='classic', walls=[], food=null, speed=START_MS, running=false, paused=false;
 let raf=0, last=0, acc=0, pulse=0, eaten=0, winner=0;
-let S1=null, S2=null;
+let S1=null, S2=null, RUN={};
 
 function mkSnake(x,y,dir,keys,skin){
   return {body:[{x,y},{x:x-dir.x,y:y-dir.y},{x:x-dir.x*2,y:y-dir.y*2}],
@@ -2692,7 +2920,7 @@ function place(){
   food={x,y,fruit:pick(FRUITS),born:performance.now()};
 }
 function reset(m){
-  mode=m||'classic'; walls=[]; winner=0; eaten=0; speed=START_MS;
+  mode=m||'classic'; walls=[]; winner=0; eaten=0; speed=START_MS; RUN={};
   if(mode==='maze') buildMaze();
   if(mode==='duel'){
     S1=mkSnake(3,4,{x:1,y:0},KEYS1,{head:'#a5f3fc',hue:190});
@@ -2749,6 +2977,23 @@ function step(){
     }
   } else if(!S1.alive) return over();
 }
+/* a rewarded spot puts a short snake back on a clear stretch of board */
+function reviveRun(){
+  overlay(oOver,false);
+  Run.restorePb(RUN,'snake');
+  RUN.revived=true;
+  let x=Math.floor(COLS/2), y=Math.floor(ROWS/2), tries=0;
+  while(tries<300&&(isWall(x,y)||isWall(x+1,y)||isWall(x+2,y)||isWall(x-1,y)||isWall(x-2,y))){
+    x=randInt(3,COLS-4); y=randInt(2,ROWS-3); tries++;
+  }
+  S1.body=[{x,y},{x:x-1,y},{x:x-2,y}];
+  S1.dir={x:1,y:0}; S1.queue=[]; S1.grow=0; S1.alive=true;
+  speed=Math.min(START_MS,speed+STEP_MS*4);
+  if(food&&(onSnake(food.x,food.y)||isWall(food.x,food.y))) place();
+  running=true; paused=false; last=0; acc=0;
+  cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); draw();
+  Sfx.win();
+}
 function over(){
   running=false; cancelAnimationFrame(raf); Sfx.over();
   const score=S1.score+(S2?S2.score:0);
@@ -2770,10 +3015,14 @@ function over(){
   }
   if(eaten) Profile.stat('snake.fruit',eaten);
   const purse=Math.round(score/4)+(mode==='duel'&&winner===1?40:0);
-  if(purse>0) Profile.pay(purse);
-  $('#snCash').textContent='+$'+purse;
+  if(mode!=='duel') Run.keepPb(RUN,'snake');
+  Profile.pay(Run.owe(RUN,purse));
+  $('#snCash').textContent='+$'+(RUN.banked||0);
   if(mode!=='duel') PB.show($('#snPb'),'snake',S1.score);
   else $('#snPb').textContent='';
+  Ads.offer($('#snPb'),{game:'snake',cash:RUN.banked,doubled:RUN.doubled,
+    onDouble(){ RUN.doubled=true; },
+    revive:(mode==='duel'||RUN.revived)?null:{label:'CONTINUE &middot; KEEP YOUR SCORE',run:reviveRun}});
   $('#snScore').textContent=mode==='duel'?(S1.score+' / '+S2.score):S1.score;
   $('#snLen').textContent=S1.body.length+(S2?' / '+S2.body.length:'');
   overlay(oOver,true);
@@ -2941,12 +3190,13 @@ function win(){
   Profile.stat('memory.best',Math.round(elapsed),'max');
   if(moves===PAIRS) Profile.stat('memory.perfect',1);
   const purse=Math.max(30,Math.round(240000/Math.max(8000,elapsed)))*2;
-  Profile.pay(purse);
-  $('#mwCash').textContent='+$'+purse;
+  const paid=Profile.pay(purse);
+  $('#mwCash').textContent='+$'+paid;
   const lb=Store.get('memory.lb',[]);
   const rank=lb.filter(r=>r.ms<elapsed).length+1;
   pendingScore={ms:Math.round(elapsed),moves};
   PB.show($('#mwPb'),'memory',Math.round(elapsed),{lower:true,fmt:v=>fmtTime(v)});
+  Ads.offer($('#mwPb'),{game:'memory',cash:paid});
   $('#mwRank').textContent = rank<=10 ? '#'+rank : '—';
   $('#mwSave').style.display = rank<=10 ? '' : 'none';
   if(rank<=10){ $('#mwName').value=Profile.name; setTimeout(()=>$('#mwName').focus(),350); }
@@ -3151,7 +3401,8 @@ function finish(winning){
   const top=tiles.reduce((m,t)=>Math.max(m,t.v),0);
   Profile.stat('g2048.tile',top,'max');
   Profile.stat('g2048.best',score,'max');
-  if(!finish.paid||finish.paid!==score){ finish.paid=score; Profile.pay(Math.round(score/50)); }
+  let paid=0;
+  if(!finish.paid||finish.paid!==score){ finish.paid=score; paid=Profile.pay(Math.round(score/50)); }
   if(winning){ won='shown'; Sfx.win();
     $('#g2OverTitle').textContent='2048 REACHED!'; $('#g2OverTitle').style.color='var(--lime)';
     $('#g2Continue').hidden=false;
@@ -3164,6 +3415,7 @@ function finish(winning){
   $('#g2FinalTile').textContent=topTile;
   $('#g2FinalBest').textContent=best.toLocaleString();
   PB.show($('#g2Pb'),'g2048',score);
+  Ads.offer($('#g2Pb'),{game:'g2048',cash:paid});
   const rank=lbRank(score);
   $('#g2Rank').textContent=rank<=10?'#'+rank:'—';
   $('#g2Save').style.display=score>0?'':'none';
@@ -3736,11 +3988,12 @@ function crash(){
   const d=Math.floor(dist), hi=Math.max(Store.get('bike.hi',0),d); Store.set('bike.hi',hi);
   Profile.stat('bike.meters',d);
   Profile.stat('bike.speed',Math.round(topSpeed/MAXSPEED*260),'max');
-  Profile.pay(Math.round(d/10));
   const purse=Math.round(d/10);
+  const paid=Profile.pay(purse);
   $('#bkDist').textContent=d+' m'; $('#bkSpeed').textContent=Math.round(topSpeed/MAXSPEED*260)+' km/h';
   $('#bkCoins').textContent=coins; $('#bkCash').textContent='+$'+(purse+coins*5);
   PB.show($('#bkPb'),'bike',d,{fmt:v=>v.toLocaleString()+' m'});
+  Ads.offer($('#bkPb'),{game:'bike',cash:paid});
   $('#bkHi').textContent=hi+' m'; $('#bikeHi').textContent=hi+' m';
   setTimeout(()=>overlay(oOver,true),300);
 }
@@ -3971,6 +4224,18 @@ function collapse(){
   if(G.grid.every(row=>row.every(c=>!c))){ G.score+=3000*G.level; flash(elFlash,'PERFECT CLEAR  +'+3000*G.level,'#fbbf24'); }
   spawn();
 }
+/* a rewarded spot wipes the top of the stack and drops you back in */
+function reviveRun(){
+  overlay(oOver,false);
+  Run.restorePb(G,'tetris');
+  G.revived=true;
+  for(let y=0;y<12;y++) G.grid[y]=Array(COLS).fill(null);
+  G.clearing=null; G.clearT=0; G.combo=-1; G.fall=0; G.piece=null; G.holdUsed=false;
+  if(!spawn()) return;
+  running=true; paused=false; last=0;
+  cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
+  flash(elFlash,'STACK CLEARED','#a3e635'); Sfx.win();
+}
 function over(reason){
   running=false; cancelAnimationFrame(raf);
   const done=reason==='sprint'||reason==='ultra';
@@ -4001,10 +4266,14 @@ function over(reason){
   $('#tetrisOverTitle').textContent = done?'MODE COMPLETE':'GAME OVER';
   $('#tetrisOverTitle').style.color = done?'var(--lime)':'var(--red)';
   $('#ttTime').textContent=fmtTime(G.time);
+  if(!done) Run.keepPb(G,'tetris');
   if(reason==='sprint') PB.show($('#ttPb'),'tetris.sprint',Math.round(G.time),{lower:true,fmt:v=>fmtTime(v)});
   else PB.show($('#ttPb'),'tetris',G.score);
   const purse=Math.round(G.score/60)+G.lines*2+(reason==='sprint'?120:0);
-  Profile.pay(purse); $('#ttCash').textContent='+$'+purse;
+  Profile.pay(Run.owe(G,purse)); $('#ttCash').textContent='+$'+G.banked;
+  Ads.offer($('#ttPb'),{game:'tetris',cash:G.banked,doubled:G.doubled,
+    onDouble(){ G.doubled=true; },
+    revive:(done||G.revived)?null:{label:'CONTINUE &middot; CLEAR THE STACK',run:reviveRun}});
   $('#ttScore').textContent=G.score.toLocaleString(); $('#ttLines').textContent=G.lines;
   $('#ttLevel').textContent=G.level; $('#tetrisHi').textContent=G.hi;
   const sb=Store.get('tetris.sprintBest',0);
@@ -4608,6 +4877,8 @@ function finish(winner,reason){
   $('#pgOpp').textContent=P.mode==='bot'?P.bot.name:P.mode==='local'?'PLAYER 2':'ONLINE PLAYER';
   $('#pgCash').textContent='$'+P.earned;
   PB.show($('#pgPb'),'pong',P.bestRally,{fmt:v=>v+' HIT RALLY'});
+  Ads.offer($('#pgPb'),{game:'pong',cash:P.earned,doubled:P.doubled,
+    onDouble(){ P.doubled=true; syncCash(); }});
   $('#pongWins').textContent=Store.get('pong.wins',0);
   syncCash();
   setTimeout(()=>overlay(oOver,true),380);
@@ -4871,7 +5142,9 @@ function fresh(lv,keep){
     level:lv||1, score:keep?B.score:0, lives:keep?B.lives:3, bricks:level(lv||1),
     paddle:{x:W/2-PW0/2,w:PW0,vx:0}, balls:[], pups:[], lasers:[], parts:[],
     eff:{wide:0,laser:0,slow:0,sticky:0}, combo:0, shake:0, t:0, over:false,
-    bricksHit:keep?B.bricksHit:0, lostThisLevel:false, launched:false
+    bricksHit:keep?B.bricksHit:0, lostThisLevel:false, launched:false,
+    banked:keep?B.banked:0, revived:keep?B.revived:false,
+    doubled:keep?B.doubled:false, pb0:keep?B.pb0:undefined
   };
   const p=B.paddle;
   B.balls.push(newBall(p.x+p.w/2,PY-BR-2,0,0));
@@ -4937,6 +5210,19 @@ function nextLevel(){
   text('LEVEL '+(B.level+1),'#a3e635'); Sfx.win();
   fresh(B.level+1,true);
 }
+/* a rewarded spot serves one more ball on the level you died on */
+function reviveRun(){
+  overlay(oOver,false);
+  Run.restorePb(B,'breakout');
+  B.revived=true; B.over=false; B.lives=1; B.combo=0;
+  B.eff={wide:0,laser:0,slow:0,sticky:0};
+  B.paddle.w=PW0; B.paddle.x=W/2-PW0/2;
+  const b=newBall(B.paddle.x+B.paddle.w/2,PY-BR-2,0,0); b.stuck=true;
+  B.balls=[b]; B.launched=false;
+  running=true; paused=false; last=0;
+  cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
+  text('ONE MORE BALL','#a3e635'); Sfx.win();
+}
 function finish(){
   B.over=true; running=false; cancelAnimationFrame(raf); Sfx.over();
   const hi=Math.max(Store.get('breakout.hi',0),B.score); Store.set('breakout.hi',hi);
@@ -4949,12 +5235,16 @@ function finish(){
     rest.push({name:Profile.name,score:B.score,level:B.level,at:Date.now()});
     Store.set('breakout.lb',rest.sort((a,b)=>b.score-a.score).slice(0,25));
   }
+  Run.keepPb(B,'breakout');
   const purse=Math.round(B.score/70)+B.level*15;
-  Profile.pay(purse);
+  Profile.pay(Run.owe(B,purse));
   $('#brkScore').textContent=B.score.toLocaleString(); $('#brkLevel').textContent=B.level;
-  $('#brkBricks').textContent=B.bricksHit; $('#brkCash').textContent='+$'+purse;
+  $('#brkBricks').textContent=B.bricksHit; $('#brkCash').textContent='+$'+B.banked;
   $('#brkHi').textContent=hi.toLocaleString();
   PB.show($('#brkPb'),'breakout',B.score);
+  Ads.offer($('#brkPb'),{game:'breakout',cash:B.banked,doubled:B.doubled,
+    onDouble(){ B.doubled=true; },
+    revive:B.revived?null:{label:'CONTINUE &middot; ONE MORE BALL',run:reviveRun}});
   setTimeout(()=>overlay(oOver,true),320);
 }
 function update(dt){
@@ -5259,12 +5549,13 @@ function checkWin(){
   }
   const rank=Store.get('mines.lb',[]).filter(r=>r.level===L.label&&r.ms<ms).length+1;
   const purse={beginner:60,medium:180,expert:450}[lvKey];
-  Profile.pay(purse);
+  const paid=Profile.pay(purse);
   $('#mnTitle').textContent='FIELD CLEARED'; $('#mnTitle').style.color='var(--lime)';
   $('#mnFTime').textContent=fmtTime(ms); $('#mnFLevel').textContent=L.label;
-  $('#mnRank').textContent='#'+rank; $('#mnCash').textContent='+$'+purse;
+  $('#mnRank').textContent='#'+rank; $('#mnCash').textContent='+$'+paid;
   $('#mnBest').textContent=fmtTime(Store.get(bk,ms));
   PB.show($('#mnPb'),'mines.'+lvKey,ms,{lower:true,fmt:v=>fmtTime(v)});
+  Ads.offer($('#mnPb'),{game:'mines',cash:paid});
   setTimeout(()=>overlay(oOver,true),400);
 }
 function lbRender(){
@@ -5379,6 +5670,19 @@ function update(dt){
   if(p.vy>0&&p.y>H+40) finish();
   else if(p.vy>2.4&&C.combo>0&&p.y>H*0.9){ C.combo=0; }
 }
+/* a rewarded spot catches you with a fresh ledge instead of the long fall */
+function reviveRun(){
+  overlay(oOver,false);
+  Run.restorePb(C,'climber');
+  C.revived=true; C.over=false; C.combo=0;
+  const px=clamp(C.p.x,10,W-PW-10);
+  C.plats.push({x:clamp(px-25,4,W-160),y:H-90,w:150,h:13,type:'normal',vx:0,gone:false});
+  C.p.x=px; C.p.y=H-90-PH; C.p.vy=-3; C.p.vx=0;
+  spawnAbove();
+  running=true; paused=false; last=0;
+  cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
+  Sfx.win();
+}
 function finish(){
   C.over=true; running=false; cancelAnimationFrame(raf); Sfx.over();
   const h=C.height;
@@ -5392,12 +5696,16 @@ function finish(){
     rest.push({name:Profile.name,height:h,at:Date.now()});
     Store.set('climber.lb',rest.sort((a,b)=>b.height-a.height).slice(0,25));
   }
+  Run.keepPb(C,'climber');
   const purse=Math.round(h/3);
-  Profile.pay(purse);
+  Profile.pay(Run.owe(C,purse));
   $('#clbHeight').textContent=h+' m'; $('#clbCombo').textContent=C.bestCombo;
-  $('#clbBest').textContent=hi+' m'; $('#clbCash').textContent='+$'+purse;
+  $('#clbBest').textContent=hi+' m'; $('#clbCash').textContent='+$'+C.banked;
   $('#clbHi').textContent=hi+' m';
   PB.show($('#clbPb'),'climber',h,{fmt:v=>v+' m'});
+  Ads.offer($('#clbPb'),{game:'climber',cash:C.banked,doubled:C.doubled,
+    onDouble(){ C.doubled=true; },
+    revive:C.revived?null:{label:'CONTINUE &middot; CATCH A LEDGE',run:reviveRun}});
   setTimeout(()=>overlay(oOver,true),320);
 }
 function render(){
@@ -5542,6 +5850,19 @@ function update(dt){
   V.parts=V.parts.filter(q=>!q.dead);
   V.hue=(V.hue+0.6*f)%360;
 }
+/* a rewarded spot reopens the corridor and drops you back in the middle */
+function reviveRun(){
+  overlay(oOver,false);
+  Run.restorePb(V,'waves');
+  V.revived=true; V.over=false;
+  V.centre=H/2; V.drift=0; V.gap=Math.max(170,V.gap);
+  V.cols=[]; V.ci=0;
+  for(let i=0;i<Math.ceil(W/SEGW)+4;i++) pushCol(i*SEGW,true);
+  V.y=H/2; V.vy=0; V.trail=[]; V.shake=0; held=false;
+  running=true; paused=false; last=0;
+  cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
+  Sfx.win();
+}
 function crash(){
   if(V.over) return;
   V.over=true; running=false; cancelAnimationFrame(raf); Sfx.over();
@@ -5552,12 +5873,16 @@ function crash(){
   const hi=Math.max(Store.get('waves.hi',0),d); Store.set('waves.hi',hi);
   Profile.stat('waves.dist',d,'max');
   Profile.stat('waves.gates',V.gates);
+  Run.keepPb(V,'waves');
   const purse=Math.round(d/2)+V.gates*6;
-  Profile.pay(purse);
+  Profile.pay(Run.owe(V,purse));
   $('#wavDist').textContent=d+' m'; $('#wavGates').textContent=V.gates;
-  $('#wavBest').textContent=hi+' m'; $('#wavCash').textContent='+$'+purse;
+  $('#wavBest').textContent=hi+' m'; $('#wavCash').textContent='+$'+V.banked;
   $('#wavHi').textContent=hi+' m';
   PB.show($('#wavPb'),'waves',d,{fmt:v=>v+' m'});
+  Ads.offer($('#wavPb'),{game:'waves',cash:V.banked,doubled:V.doubled,
+    onDouble(){ V.doubled=true; },
+    revive:V.revived?null:{label:'CONTINUE &middot; REOPEN THE GAP',run:reviveRun}});
   setTimeout(()=>overlay(oOver,true),340);
 }
 function render(){
@@ -5803,6 +6128,16 @@ function ollie(){
   S.vy=Math.sin(sl)*S.sp-(8.6+S.charge*4.4+S.sp*0.2);
   S.charge=0; S.y-=2; Sfx.shoot();
 }
+/* a rewarded spot hands the skater one more life; wipeout already re-planted them */
+function reviveRun(){
+  overlay(oOver,false);
+  Run.restorePb(S,'downhill');
+  S.revived=true; S.over=false; S.lives=1;
+  S.combo=0; S.shake=0; S.sp=Math.max(2.6,S.sp);
+  running=true; paused=false; last=0;
+  cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
+  flash(elFlash,'BACK ON THE BOARD','#a3e635'); Sfx.win();
+}
 function end(){
   if(S.over) return;
   S.over=true; running=false; cancelAnimationFrame(raf); Sfx.over();
@@ -5811,12 +6146,16 @@ function end(){
   Profile.stat('downhill.score',total,'max');
   Profile.stat('downhill.tricks',S.tricks);
   Profile.stat('downhill.dist',d,'max');
+  Run.keepPb(S,'downhill');
   const purse=Math.round(d/3)+Math.round(S.score/25);
-  Profile.pay(purse);
+  Profile.pay(Run.owe(S,purse));
   $('#dhScore').textContent=total; $('#dhDist').textContent=d+' m';
   $('#dhTricks').textContent=S.tricks; $('#dhBest').textContent=hi;
-  $('#dhCash').textContent='+$'+purse; $('#dhHi').textContent=hi;
+  $('#dhCash').textContent='+$'+S.banked; $('#dhHi').textContent=hi;
   PB.show($('#dhPb'),'downhill',total);
+  Ads.offer($('#dhPb'),{game:'downhill',cash:S.banked,doubled:S.doubled,
+    onDouble(){ S.doubled=true; },
+    revive:S.revived?null:{label:'CONTINUE &middot; EXTRA LIFE',run:reviveRun}});
   setTimeout(()=>overlay(oOver,true),340);
 }
 
@@ -5947,19 +6286,473 @@ hooks.downhill={
 };
 })();
 
+/* =====================================================================
+   REWARDED SPOTS — an in-page "watch a spot, keep the reward" loop.
+   The spots are house creatives drawn by this file; there is no ad
+   network, no request and no tracking anywhere in here.
+   ===================================================================== */
+
+/* shared toast, same shape the achievements and challenges use */
+function notify(icon,label,text,note,colour){
+  const wrap=$('#toasts'); if(!wrap) return;
+  const el=document.createElement('div');
+  el.className='toast rw'; el.style.setProperty('--ac',colour||'var(--lime)');
+  el.innerHTML='<div class="ti">'+icon+'</div><div><b>'+label+'</b><span>'+text+'</span>'+
+    (note?'<em>'+note+'</em>':'')+'</div>';
+  wrap.appendChild(el);
+  setTimeout(()=>{ el.classList.add('out'); setTimeout(()=>el.remove(),320); },4400);
+}
+function fmtShort(ms){
+  if(ms<=0) return 'READY';
+  const s=Math.ceil(ms/1000);
+  if(s<60) return s+'s';
+  const m=Math.floor(s/60);
+  if(m<60) return m+'m '+(s%60)+'s';
+  return Math.floor(m/60)+'h '+(m%60)+'m';
+}
+const dayStamp=d=>{ d=d||new Date(); const p=n=>String(n).padStart(2,'0');
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate()); };
+
+/* ---------------------------------------------------------------------
+   run bookkeeping — lets a run be continued without paying twice or
+   corrupting the personal-best line
+   --------------------------------------------------------------------- */
+const Run={
+  /* how much of `purse` has not been banked yet this run */
+  owe(st,purse){
+    purse=Math.round(purse)||0;
+    const owed=Math.max(0,purse-(st.banked||0));
+    st.banked=Math.max(purse,st.banked||0);
+    return owed;
+  },
+  /* remember the personal best as it stood before this run ended */
+  keepPb(st,game){ if(st.pb0===undefined) st.pb0=PB.best(game)||0; },
+  /* put it back when the run is resurrected, so the next result screen is honest */
+  restorePb(st,game){ if(st.pb0!==undefined) Profile.stat(PB.key(game),st.pb0,'set'); }
+};
+
+/* --------------------------------------------------------------- spots */
+const AD_HOUSE=[
+  {sponsor:'PIXEL COLA',ac:'#f87171',art:'&#129380;',head:'PIXEL COLA',
+   body:'Eight bits of refreshment. Now in a can you cannot open, because it is a drawing.',
+   cta:'TASTE THE RESOLUTION'},
+  {sponsor:'VOLT ENERGY',ac:'#fbbf24',art:'&#9889;',head:'VOLT ENERGY',
+   body:'Contains real electricity.* Drink one and feel your frame rate climb.',
+   cta:'*IT DOES NOT CONTAIN REAL ELECTRICITY'},
+  {sponsor:'MEGABYTE CEREAL',ac:'#a3e635',art:'&#129379;',head:'MEGABYTE CEREAL',
+   body:'Part of a complete respawn. Twelve essential vitamins, none of them real.',
+   cta:'NOW WITH 40% MORE CRUNCH'},
+  {sponsor:'CHRONO INSURANCE',ac:'#60a5fa',art:'&#128737;&#65039;',head:'CHRONO MUTUAL',
+   body:'We cover your last life, your second-to-last life, and one life you have not lived yet.',
+   cta:'ASK ABOUT OUR RESPAWN RIDER'},
+  {sponsor:'GLITCH GYM',ac:'#f472b6',art:'&#127947;&#65039;',head:'GLITCH GYM',
+   body:'Get swole. Stay low-poly. Our trainers clip through walls so you do not have to.',
+   cta:'FIRST MONTH FREE, SECOND MONTH UNDEFINED'},
+  {sponsor:'VECTOR MOTORS',ac:'#a78bfa',art:'&#128663;',head:'VECTOR MOTORS',
+   body:'Zero to sixty frames per second in under one frame. Handling sold separately.',
+   cta:'THE ROAD IS A SUGGESTION'},
+  {sponsor:'QUANTUM SOCKS',ac:'#22d3ee',art:'&#129530;',head:'QUANTUM SOCKS',
+   body:'One is always missing. This is not a defect, it is the entire product philosophy.',
+   cta:'OBSERVE THE PAIR AND IT COLLAPSES'},
+  {sponsor:'THE VOID',ac:'#8a97bd',art:'&#11035;',head:'YOUR AD HERE',
+   body:'This space is available. It has always been available. It will always be available.',
+   cta:'ENQUIRE WITHIN &middot; DO NOT ENQUIRE WITHIN'},
+  {sponsor:'NEON NOODLES',ac:'#fb923c',art:'&#127836;',head:'NEON NOODLES',
+   body:'Ready in one frame. Best served between waves, ideally while nothing is shooting at you.',
+   cta:'SLURP RESPONSIBLY'},
+  {sponsor:'ARCADE DENTAL',ac:'#e6ecff',art:'&#129463;',head:'ARCADE DENTAL',
+   body:'Twelve games will not rot your teeth. The cola in the spot before this one might.',
+   cta:'BOOK A CLEANING BETWEEN RUNS'}
+];
+
+const Ads=(()=>{
+  const wrap=$('#adWrap'), cre=$('#adCreative'), tmr=$('#adTimer'), fill=$('#adFill'),
+        skip=$('#adSkip'), claim=$('#adClaim'), rewEl=$('#adReward'), spon=$('#adSponsor');
+  let session=null, raf=0;
+
+  /* cross-promos for the arcade's own games sit in the same rotation */
+  function pool(exclude){
+    const list=AD_HOUSE.slice();
+    GAMES.forEach(g=>{
+      if(g.id===exclude) return;
+      list.push({sponsor:'NEON ARCADE',ac:g.accent,art:g.icon,head:g.name,
+        body:g.desc,cta:'ALREADY INSTALLED &middot; NOTHING TO DOWNLOAD'});
+    });
+    return list;
+  }
+  function paint(c){
+    spon.textContent=c.sponsor;
+    cre.style.setProperty('--ac',c.ac);
+    cre.innerHTML='<div class="adglow"></div><div><div class="adart">'+c.art+'</div>'+
+      '<h4>'+c.head+'</h4><p>'+c.body+'</p><div class="adcta">'+c.cta+'</div></div>';
+  }
+  function tick(){
+    if(!session) return;
+    const el=Date.now()-session.t0, p=Math.min(1,el/session.len);
+    fill.style.width=(p*100).toFixed(1)+'%';
+    if(p>=1){ ready(); return; }
+    tmr.textContent='REWARD IN '+Math.ceil((session.len-el)/1000)+'s';
+    if(!skip.hidden) skip.disabled = el<1200;
+    raf=requestAnimationFrame(tick);
+  }
+  function ready(){
+    if(!session||session.ready) return;
+    session.ready=true;
+    fill.style.width='100%';
+    tmr.textContent='REWARD UNLOCKED';
+    skip.hidden=true;
+    claim.disabled=false;
+    claim.textContent='CLAIM '+session.label;
+    try{ claim.focus(); }catch(e){}
+    Sfx.pick();
+  }
+  function done(ok){
+    if(!session) return;
+    cancelAnimationFrame(raf); raf=0;
+    wrap.classList.remove('show'); wrap.setAttribute('aria-hidden','true');
+    const res=session.res; session=null;
+    res(!!ok);
+  }
+  /* the player owns the keyboard while a spot is on screen */
+  window.addEventListener('keydown',e=>{
+    if(!session) return;
+    e.stopPropagation();
+    if(e.key==='Escape'){ e.preventDefault(); done(session.ready); }
+    else if(e.key==='Enter'&&session.ready){ e.preventDefault(); done(true); }
+  },true);
+  window.addEventListener('keyup',e=>{ if(session) e.stopPropagation(); },true);
+  skip.addEventListener('click',()=>{ if(session&&!session.ready) done(false); });
+  claim.addEventListener('click',()=>{ if(session&&session.ready) done(true); });
+
+  function play(opt){
+    opt=opt||{};
+    if(session) return Promise.resolve(false);
+    const len=Math.max(1500,opt.length||5000);
+    paint(pick(pool(opt.exclude)));
+    for(const k in Keys) Keys[k]=false;
+    rewEl.innerHTML=opt.label||'A REWARD';
+    claim.disabled=true; claim.textContent='HOLD ON…';
+    skip.hidden=false; skip.disabled=true; skip.textContent='SKIP';
+    fill.style.width='0%'; tmr.textContent='REWARD IN '+Math.ceil(len/1000)+'s';
+    wrap.classList.add('show'); wrap.setAttribute('aria-hidden','false');
+    Ads.count(1);
+    return new Promise(res=>{
+      session={res,len,t0:Date.now(),ready:false,label:opt.label||'REWARD'};
+      raf=requestAnimationFrame(tick);
+    });
+  }
+
+  /* ---- the offer strip that appears on results screens ---- */
+  function offer(anchor,opt){
+    if(!anchor||!anchor.parentNode) return;
+    opt=opt||{};
+    const old=anchor.parentNode.querySelector('.offerbar');
+    if(old) old.remove();
+    const paid=Math.max(0,Math.round(opt.cash||0));
+    const items=[];
+    if(opt.revive) items.push({k:'revive',ac:'var(--lime)',ico:'&#10084;',
+      title:opt.revive.label||'CONTINUE THIS RUN',sub:'WATCH A SHORT SPOT'});
+    if(paid>0&&!opt.doubled) items.push({k:'double',ac:'var(--amber)',ico:'&#128176;',
+      title:'DOUBLE YOUR $'+paid.toLocaleString(),sub:'WATCH A SHORT SPOT'});
+    if(!items.length) return;
+    const bar=document.createElement('div');
+    bar.className='offerbar';
+    bar.innerHTML=items.map(i=>'<button class="offer" type="button" data-k="'+i.k+'" style="--ac:'+i.ac+'">'+
+      '<span class="oi">'+i.ico+'</span><span><b>'+i.title+'</b><span>'+i.sub+'</span></span></button>').join('');
+    anchor.insertAdjacentElement('afterend',bar);
+    const lock=v=>Array.prototype.forEach.call(bar.querySelectorAll('.offer'),b=>{b.disabled=v;});
+    bar.addEventListener('click',e=>{
+      const b=e.target.closest('.offer'); if(!b||b.disabled) return;
+      const k=b.dataset.k;
+      lock(true);
+      play({exclude:opt.game,
+        label:k==='revive'?'CONTINUE':'$'+paid.toLocaleString()}).then(ok=>{
+        if(!ok){ lock(false); return; }
+        if(k==='revive'){ bar.remove(); try{ opt.revive.run(); }catch(err){} return; }
+        Profile.pay(paid,true);
+        notify('&#128176;','PAYOUT DOUBLED','The spot paid off &mdash; this run banks twice.',
+          '+$'+paid.toLocaleString(),'var(--amber)');
+        Sfx.win();
+        if(opt.onDouble) try{ opt.onDouble(); }catch(err){}
+        b.remove();
+        const left=bar.querySelector('.offer');
+        if(left) left.disabled=false; else bar.remove();
+      });
+    });
+  }
+
+  return {
+    play, offer,
+    get busy(){ return !!session; },
+    /* how many spots have been watched today, for the shop header */
+    count(add){
+      const today=dayStamp();
+      let c=Store.get('ads.count',null);
+      if(!c||c.day!==today) c={day:today,n:0};
+      if(add) { c.n+=add; Store.set('ads.count',c); }
+      return c.n;
+    }
+  };
+})();
+
+/* =====================================================================
+   REWARD SHOP — spots you choose to watch, for a reward you choose
+   ===================================================================== */
+const RW=[
+  {id:'cash',ico:'&#128181;',ac:'var(--lime)',name:'CASH DROP',val:'$500',
+   desc:'Five hundred dollars dropped straight into the arcade wallet.',
+   cap:6,cool:5*60000},
+  {id:'big',ico:'&#128176;',ac:'var(--amber)',name:'BIG DROP',val:'$1,500',
+   desc:'A serious top-up. Rarer, slower to come back, worth the wait.',
+   cap:3,cool:40*60000},
+  {id:'mystery',ico:'&#127873;',ac:'var(--pink)',name:'MYSTERY BOX',val:'$100 &ndash; $2,500',
+   desc:'Could be pocket change, could be a shopping spree. You will not know until it opens.',
+   cap:4,cool:15*60000},
+  {id:'boost',ico:'&#9889;',ac:'var(--cyan)',name:'DOUBLE PAY',val:'20 MINUTES',
+   desc:'Every payout in every game counts twice for the next twenty minutes.',
+   cap:3,cool:25*60000},
+  {id:'chal',ico:'&#9873;',ac:'var(--violet)',name:'CHALLENGE SKIP',val:'1 CHALLENGE',
+   desc:'Clears one unfinished daily challenge outright, reward and sweep progress included.',
+   cap:1,cool:0},
+  {id:'jack',ico:'&#127920;',ac:'var(--red)',name:'JACKPOT SPIN',val:'UP TO $10,000',
+   desc:'Long odds and a very high ceiling. Most spins pay small; one in fifty does not.',
+   cap:2,cool:45*60000}
+];
+
+const Rewards=(()=>{
+  function ledger(){
+    const today=dayStamp();
+    let L=Store.get('rw.log',null);
+    if(!L||L.day!==today) L={day:today,n:{},last:{}};
+    L.n=L.n||{}; L.last=L.last||{};
+    return L;
+  }
+  function saveL(L){ Store.set('rw.log',L); }
+  function stateOf(it){
+    const L=ledger();
+    const used=L.n[it.id]||0;
+    const left=Math.max(0,it.cap-used);
+    const cool=Math.max(0,(L.last[it.id]||0)+it.cool-Date.now());
+    let block='';
+    if(!left) block='BACK TOMORROW';
+    else if(cool>0) block='READY IN '+fmtShort(cool);
+    else if(it.id==='chal'&&!openChal()) block='NOTHING LEFT TO SKIP';
+    return {used,left,cool,block,ready:!block};
+  }
+  /* first unfinished daily challenge, if any */
+  function openChal(){
+    const c=Chal.state().day;
+    return c.picks.find(id=>c.done.indexOf(id)<0)||null;
+  }
+  function grant(it){
+    if(it.id==='cash'){ Profile.pay(500,true);
+      notify(it.ico,'CASH DROP','Straight into the wallet.','+$500','var(--lime)'); Sfx.win(); return; }
+    if(it.id==='big'){ Profile.pay(1500,true);
+      notify(it.ico,'BIG DROP','That should cover a few accessories.','+$1,500','var(--amber)'); Sfx.win(); return; }
+    if(it.id==='mystery'){
+      const n=pick([100,150,250,400,600,900,1200,1800,2500]);
+      Profile.pay(n,true);
+      notify(it.ico,'MYSTERY BOX',n>=1200?'The box was generous today.':'A modest little box.',
+        '+$'+n.toLocaleString(),'var(--pink)'); Sfx.win(); return; }
+    if(it.id==='boost'){
+      Boost.grant(20*60000);
+      notify(it.ico,'DOUBLE PAY ACTIVE','Every payout counts twice until it runs out.',
+        fmtShort(Boost.left)+' REMAINING','var(--cyan)'); Sfx.win(); return; }
+    if(it.id==='chal'){
+      const id=openChal();
+      if(!id){ notify(it.ico,'NOTHING TO SKIP','Every daily challenge is already done.','','var(--dim)'); return; }
+      Chal.force('day',id); return; }
+    if(it.id==='jack'){
+      const r=Math.random();
+      const n = r<0.02 ? 10000 : r<0.10 ? 3000 : r<0.34 ? 1000 : r<0.68 ? 400 : 150;
+      Profile.pay(n,true);
+      notify(it.ico,n>=3000?'JACKPOT!':'SPIN PAID',
+        n>=10000?'One in fifty. That was the one.':n>=3000?'A very good spin.':'The house keeps the rest.',
+        '+$'+n.toLocaleString(),n>=3000?'var(--amber)':'var(--red)');
+      n>=3000?Sfx.win():Sfx.pick(); return; }
+  }
+  function watch(it){
+    const st=stateOf(it);
+    if(!st.ready) return;
+    Ads.play({label:it.val.replace(/&ndash;/g,'-'),exclude:null}).then(ok=>{
+      if(!ok){ render(); return; }
+      const L=ledger();
+      L.n[it.id]=(L.n[it.id]||0)+1;
+      L.last[it.id]=Date.now();
+      saveL(L);
+      grant(it);
+      render();
+      syncMenuActs();
+    });
+  }
+  function render(){
+    const grid=$('#rwGrid'); if(!grid) return;
+    $('#rwWallet').textContent='$'+Profile.cash.toLocaleString();
+    $('#rwWatched').textContent=Ads.count(0);
+    const bc=$('#rwBoostChip');
+    if(Boost.active){ bc.hidden=false; $('#rwBoost').textContent=fmtShort(Boost.left)+' LEFT'; }
+    else bc.hidden=true;
+    grid.innerHTML=RW.map(it=>{
+      const st=stateOf(it);
+      return '<div class="rw'+(st.ready?'':' spent')+'" style="--ac:'+it.ac+'">'+
+        '<div class="ri">'+it.ico+'</div>'+
+        '<h3>'+it.name+'</h3>'+
+        '<div class="rval">'+it.val+'</div>'+
+        '<p>'+it.desc+'</p>'+
+        '<div class="rleft">'+(it.cap-st.used)+' OF '+it.cap+' LEFT TODAY</div>'+
+        '<button class="rbtn" type="button" data-rw="'+it.id+'"'+(st.ready?'':' disabled')+'>'+
+        (st.ready?'&#9654; WATCH A SPOT':st.block)+'</button></div>';
+    }).join('');
+  }
+  const grid=$('#rwGrid');
+  if(grid) grid.addEventListener('click',e=>{
+    const b=e.target.closest('[data-rw]'); if(!b||b.disabled) return;
+    const it=RW.find(x=>x.id===b.dataset.rw); if(it) watch(it);
+  });
+  let timer=0;
+  return {
+    render,
+    enter(){ render(); clearInterval(timer); timer=setInterval(()=>{ if(current==='rewards') render(); },1000); },
+    leave(){ clearInterval(timer); timer=0; }
+  };
+})();
+hooks.rewards={
+  enter(){ Rewards.enter(); },
+  leave(){ Rewards.leave(); },
+  act(a){ if(a==='menu') goto('menu'); else if(a==='daily') Daily.open(); }
+};
+
+/* =====================================================================
+   DAILY BONUS — a seven-day streak; come back tomorrow and the next
+   tile is worth more. Miss a day and it starts over.
+   ===================================================================== */
+const DAILY=[
+  {ico:'&#128181;',label:'$250'  ,cash:250},
+  {ico:'&#128181;',label:'$450'  ,cash:450},
+  {ico:'&#128176;',label:'$700'  ,cash:700},
+  {ico:'&#127873;',label:'$1,000',cash:1000},
+  {ico:'&#9889;'  ,label:'2&times; 15m',cash:400,boost:15*60000},
+  {ico:'&#128142;',label:'$1,800',cash:1800},
+  {ico:'&#128081;',label:'$3,000',cash:3000,boost:30*60000}
+];
+
+const Daily=(()=>{
+  const wrap=$('#dayWrap');
+  function st(){
+    const s=Store.get('daily',null)||{last:'',streak:0};
+    s.last=s.last||''; s.streak=s.streak|0;
+    return s;
+  }
+  const yesterday=()=>dayStamp(new Date(Date.now()-86400000));
+  function available(){ return st().last!==dayStamp(); }
+  /* the streak number this claim would land on */
+  function nextStreak(){ const s=st(); return s.last===yesterday() ? s.streak+1 : 1; }
+  function slotOf(streak){ return ((Math.max(1,streak)-1)%7); }
+  function untilMidnight(){ const t=new Date(); t.setHours(24,0,0,0); return t-Date.now(); }
+
+  function claim(dbl){
+    if(!available()) return;
+    const streak=nextStreak(), i=slotOf(streak), d=DAILY[i];
+    Store.set('daily',{last:dayStamp(),streak});
+    const cash=d.cash*(dbl?2:1);
+    Profile.pay(cash,true);
+    if(d.boost) Boost.grant(d.boost*(dbl?2:1));
+    notify(d.ico,'DAY '+streak+' CLAIMED',
+      d.boost?'Cash plus double pay for a while.':'Come back tomorrow for a bigger one.',
+      '+$'+cash.toLocaleString()+(dbl?' (DOUBLED)':''),'var(--amber)');
+    Sfx.win();
+    render(); syncMenuActs();
+    if(current==='rewards') Rewards.render();
+  }
+  function render(){
+    const s=st(), open=available(), streak=open?nextStreak():Math.max(1,s.streak);
+    const i=slotOf(streak);
+    $('#dayStrip').innerHTML=DAILY.map((d,n)=>{
+      const done = open ? n<i : n<=i;
+      const now  = open && n===i;
+      return '<div class="dayt'+(done?' done':'')+(now?' now':'')+'">'+
+        '<em>DAY '+(n+1)+'</em><div class="dico">'+d.ico+'</div><b>'+d.label+'</b></div>';
+    }).join('');
+    $('#daySub').innerHTML = open
+      ? 'DAY '+streak+' OF YOUR STREAK IS READY TO CLAIM'
+      : 'TODAY IS CLAIMED &mdash; NEXT DROP IN '+fmtShort(untilMidnight());
+    $('#dayStreak').innerHTML = 'CURRENT STREAK <b>'+(open?streak:Math.max(1,s.streak))+' DAY'+
+      ((open?streak:Math.max(1,s.streak))===1?'':'S')+'</b>'+
+      ' &middot; MISS A DAY AND IT RESTARTS AT DAY 1';
+    const acts=$('#dayActs');
+    acts.innerHTML = open
+      ? '<button class="btn primary" type="button" data-day="claim">CLAIM $'+
+          DAILY[i].cash.toLocaleString()+'</button>'+
+        '<button class="btn pink" type="button" data-day="double">&#127909; DOUBLE IT &mdash; WATCH A SPOT</button>'+
+        '<button class="btn ghost" type="button" data-day="close">LATER</button>'
+      : '<button class="btn ghost" type="button" data-day="close">CLOSE</button>';
+  }
+  wrap.addEventListener('click',e=>{
+    if(e.target===wrap){ close(); return; }
+    const b=e.target.closest('[data-day]'); if(!b) return;
+    const a=b.dataset.day;
+    if(a==='close'){ close(); return; }
+    if(a==='claim'){ claim(false); return; }
+    if(a==='double'){
+      const i=slotOf(nextStreak());
+      Array.prototype.forEach.call(wrap.querySelectorAll('[data-day]'),x=>{x.disabled=true;});
+      Ads.play({label:'$'+(DAILY[i].cash*2).toLocaleString()}).then(ok=>{
+        Array.prototype.forEach.call(wrap.querySelectorAll('[data-day]'),x=>{x.disabled=false;});
+        claim(!!ok);
+      });
+    }
+  });
+  window.addEventListener('keydown',e=>{
+    if(wrap.classList.contains('show')&&!Ads.busy&&e.key==='Escape'){ e.stopPropagation(); close(); }
+  },true);
+  function open(){ render(); wrap.classList.add('show'); wrap.setAttribute('aria-hidden','false'); }
+  function close(){ wrap.classList.remove('show'); wrap.setAttribute('aria-hidden','true'); }
+  return {open,close,available,render,
+    get streak(){ return st().streak; }};
+})();
+
+/* ---------- menu buttons ---------- */
+function syncMenuActs(){
+  const dp=$('#mactDailyPip'), ds=$('#mactDailySub');
+  if(dp){
+    const open=Daily.available();
+    dp.hidden=!open;
+    ds.innerHTML=open?'A DROP IS WAITING FOR YOU':'CLAIMED &middot; BACK TOMORROW';
+  }
+  const rs=$('#mactRewardsSub');
+  if(rs){
+    const ready=RW.filter(it=>{
+      const L=Store.get('rw.log',null), today=dayStamp();
+      const n=(L&&L.day===today&&L.n&&L.n[it.id])||0;
+      const last=(L&&L.day===today&&L.last&&L.last[it.id])||0;
+      return n<it.cap && last+it.cool<=Date.now();
+    }).length;
+    rs.innerHTML = ready ? ready+' REWARD'+(ready===1?'':'S')+' READY TO CLAIM'
+                         : 'ALL CLAIMED &middot; BACK TOMORROW';
+  }
+}
+(function(){
+  const r=$('#mactRewards'), d=$('#mactDaily');
+  if(r) r.addEventListener('click',()=>goto('rewards'));
+  if(d) d.addEventListener('click',()=>Daily.open());
+})();
+
 /* ---------- boot ---------- */
 /* Hosted copies cache themselves for offline play; opening the file directly skips this. */
 if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){
   window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
 renderMenu();
+syncMenuActs();
 (function(){
   const h=(location.hash||'').replace('#','');
-  if(h&&(GAMES.some(g=>g.id===h)||h==='profile'||h==='hall'||h==='shop')) goto(h); else goto('menu');
+  if(h&&(GAMES.some(g=>g.id===h)||h==='profile'||h==='hall'||h==='shop'||h==='rewards')) goto(h); else goto('menu');
 })();
+/* a returning player gets their streak offered straight away, but only on the menu */
+if(Daily.available()) setTimeout(()=>{ if(current==='menu'&&!Ads.busy) Daily.open(); },700);
 window.addEventListener('hashchange',()=>{
   const h=(location.hash||'').replace('#','')||'menu';
-  if(h!==current&&(h==='menu'||h==='profile'||h==='hall'||h==='shop'||GAMES.some(g=>g.id===h))) goto(h);
+  if(h!==current&&(h==='menu'||h==='profile'||h==='hall'||h==='shop'||h==='rewards'||GAMES.some(g=>g.id===h))) goto(h);
 });
 </script>
 
